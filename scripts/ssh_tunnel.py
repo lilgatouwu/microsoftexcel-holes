@@ -70,7 +70,7 @@ def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     # print(f" * Running on {tunnel_url}")
     os.environ['webui_url'] = tunnel_url
     colab_url = os.getenv('colab_url')
-    strings.en["SHARE_LINK_MESSAGE"] = f"Running on public URL: {tunnel_url}"
+    strings.en["SHARE_LINK_MESSAGE"] = f"Running on Public URL: {tunnel_url}"
 
 if cmd_opts.localhostrun:
     print("localhost.run detected, trying to connect...")
@@ -79,3 +79,7 @@ if cmd_opts.localhostrun:
 if cmd_opts.remotemoe:
     print("remote.moe detected, trying to connect...")
     ssh_tunnel(REMOTE_MOE)
+
+if cmd_opts.googleusercontent:
+    print("googleusercontent.com detected, trying to connect...")
+    googleusercontent_tunnel()
