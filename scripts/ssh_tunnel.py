@@ -6,6 +6,8 @@ import shlex
 import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from gradio import strings
+import os
 
 from modules.shared import cmd_opts
 
@@ -66,8 +68,9 @@ def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     else:
         raise RuntimeError(f"Failed to run {host}")
 
-    print(f" * Running on {tunnel_url}")
-
+    # print(f" * Running on {tunnel_url}")
+    os.environ['webui_url'] = tunnel_url
+    strings.en["SHARE_LINK_MESSAGE"] = f"Running on public URL: {tunnel_url}"
 
 if cmd_opts.localhostrun:
     print("localhost.run detected, trying to connect...")
