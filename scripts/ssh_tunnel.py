@@ -22,6 +22,7 @@ def gen_key(path: str | Path) -> None:
     subprocess.run(args, check=True)
     path.chmod(0o600)
 
+tunnel_url = ""
 
 def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     ssh_name = "id_rsa"
