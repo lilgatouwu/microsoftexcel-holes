@@ -50,7 +50,7 @@ def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     if tmp is not None:
         atexit.register(tmp.cleanup)
 
-    tunnel_url = ""
+    global tunnel_url = ""
     lines = 27 if host == LOCALHOST_RUN else 5
     pattern = localhostrun_pattern if host == LOCALHOST_RUN else remotemoe_pattern
 
