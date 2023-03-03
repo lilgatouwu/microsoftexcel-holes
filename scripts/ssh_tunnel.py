@@ -66,13 +66,15 @@ def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     else:
         raise RuntimeError(f"Failed to run {host}")
 
-    print(f" * Running on {tunnel_url}")
+    # print(f" * Running on {tunnel_url}")
 
 
 if cmd_opts.localhostrun:
     print("localhost.run detected, trying to connect...")
     ssh_tunnel(LOCALHOST_RUN)
+    print(f"Running on {tunnel_url}")
 
 if cmd_opts.remotemoe:
     print("remote.moe detected, trying to connect...")
     ssh_tunnel(REMOTE_MOE)
+    print(f"Running on {tunnel_url}")
