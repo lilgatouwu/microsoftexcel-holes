@@ -13,7 +13,7 @@ LOCALHOST_RUN = "localhost.run"
 REMOTE_MOE = "remote.moe"
 localhostrun_pattern = re.compile(r"(?P<url>https?://\S+\.lhr\.life)")
 remotemoe_pattern = re.compile(r"(?P<url>https?://\S+\.remote\.moe)")
-
+tunnel_url = ""
 
 def gen_key(path: str | Path) -> None:
     path = Path(path)
@@ -22,7 +22,7 @@ def gen_key(path: str | Path) -> None:
     subprocess.run(args, check=True)
     path.chmod(0o600)
 
-global tunnel_url = ""
+
 
 def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     ssh_name = "id_rsa"
