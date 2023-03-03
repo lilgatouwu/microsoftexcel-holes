@@ -84,7 +84,3 @@ if cmd_opts.localhostrun:
 if cmd_opts.remotemoe:
     print("remote.moe detected, trying to connect...")
     ssh_tunnel(REMOTE_MOE)
-
-if cmd_opts.googleusercontent:
-    print("googleusercontent.com detected, trying to connect...")
-    googleusercontent_tunnel()
