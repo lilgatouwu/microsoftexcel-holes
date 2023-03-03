@@ -13,7 +13,7 @@ LOCALHOST_RUN = "localhost.run"
 REMOTE_MOE = "remote.moe"
 localhostrun_pattern = re.compile(r"(?P<url>https?://\S+\.lhr\.life)")
 remotemoe_pattern = re.compile(r"(?P<url>https?://\S+\.remote\.moe)")
-
+tunnel_url = ""
 
 def gen_key(path: str | Path) -> None:
     path = Path(path)
@@ -21,6 +21,7 @@ def gen_key(path: str | Path) -> None:
     args = shlex.split(arg_string)
     subprocess.run(args, check=True)
     path.chmod(0o600)
+
 
 
 def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
@@ -50,7 +51,6 @@ def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     if tmp is not None:
         atexit.register(tmp.cleanup)
 
-    global tunnel_url = ""
     lines = 27 if host == LOCALHOST_RUN else 5
     pattern = localhostrun_pattern if host == LOCALHOST_RUN else remotemoe_pattern
 
