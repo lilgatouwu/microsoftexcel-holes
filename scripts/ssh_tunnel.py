@@ -1,12 +1,11 @@
+from __future__ import annotations
+
 import atexit
 import re
 import shlex
 import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Union
-from gradio import strings
-import os
 
 from modules.shared import cmd_opts
 
@@ -16,7 +15,7 @@ localhostrun_pattern = re.compile(r"(?P<url>https?://\S+\.lhr\.life)")
 remotemoe_pattern = re.compile(r"(?P<url>https?://\S+\.remote\.moe)")
 
 
-def gen_key(path: Union[str, Path]) -> None:
+def gen_key(path: str | Path) -> None:
     path = Path(path)
     arg_string = f'ssh-keygen -t rsa -b 4096 -N "" -q -f {path.as_posix()}'
     args = shlex.split(arg_string)
@@ -67,20 +66,15 @@ def ssh_tunnel(host: str = LOCALHOST_RUN) -> None:
     else:
         raise RuntimeError(f"Failed to run {host}")
 
-    # print(f" * Running on {tunnel_url}")
-    os.environ['webui_url'] = tunnel_url
-    colab_url = os.getenv('colab_url')
-    strings.en["SHARE_LINK_MESSAGE"] = f"Public WebUI Colab URL: {tunnel_url}"
+    print(f" * Running on {tunnel_url}")
 
-
-def googleusercontent_tunnel():
-    colab_url = os.getenv('colab_url')
-    strings.en["SHARE_LINK_MESSAGE"] = f"WebUI Colab URL: {colab_url}"
 
 if cmd_opts.localhostrun:
     print("localhost.run detected, trying to connect...")
     ssh_tunnel(LOCALHOST_RUN)
+    print(f" * Running on {tunnel_url}")
 
 if cmd_opts.remotemoe:
     print("remote.moe detected, trying to connect...")
     ssh_tunnel(REMOTE_MOE)
+    print(f" * Running on {tunnel_url}")
